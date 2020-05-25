@@ -110,12 +110,18 @@ plot_mobile
 tooltip_css = "background-color:white;color:black;font-style:italic;padding:10px;border-radius:5px;border-style:solid;"
 
 plot_girafe = girafe(ggobj = plot,
-                     options = list(opts_tooltip(css = tooltip_css) ))
+                     options = list(opts_tooltip(css = tooltip_css,
+                                                 use_cursor_pos = FALSE,
+                                                 offx = 120, offy = 100,
+                                                 delay_mouseout = 1500) ))
 
 saveWidget(plot_girafe, file = "covid_deaths_interactive.html")
 
 
 plot_girafe_mobile = girafe(ggobj = plot_mobile,
-                            options = list(opts_tooltip(css = tooltip_css) ))
+                            options = list(opts_tooltip(css = tooltip_css,
+                                                        use_cursor_pos = FALSE,
+                                                        offx = 120, offy = 100,
+                                                        delay_mouseout = 1500) ))
 saveWidget(plot_girafe_mobile, file = "covid_deaths_interactive_mobile.html")
 
