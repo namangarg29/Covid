@@ -17,7 +17,7 @@ data = fromJSON(txt = "Data/non_virus_deaths.json") %>%
   pluck("rows") %>%
   pluck("value") %>%
   mutate(incident_date = as.Date(incident_date),
-         cause = reason %>% 
+         cause = reason %>%
            pluck(1) %>%
            reduce(~str_c(.x, .y, sep = ", ")))
 
@@ -111,8 +111,6 @@ tooltip_css = "background-color:white;color:black;font-style:italic;padding:10px
 
 plot_girafe = girafe(ggobj = plot,
                      options = list(opts_tooltip(css = tooltip_css,
-                                                 use_cursor_pos = FALSE,
-                                                 offx = 120, offy = 100,
                                                  delay_mouseout = 1500) ))
 
 saveWidget(plot_girafe, file = "covid_deaths_interactive.html")
@@ -120,8 +118,5 @@ saveWidget(plot_girafe, file = "covid_deaths_interactive.html")
 
 plot_girafe_mobile = girafe(ggobj = plot_mobile,
                             options = list(opts_tooltip(css = tooltip_css,
-                                                        use_cursor_pos = FALSE,
-                                                        offx = 120, offy = 100,
                                                         delay_mouseout = 1500) ))
 saveWidget(plot_girafe_mobile, file = "covid_deaths_interactive_mobile.html")
-
