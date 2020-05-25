@@ -88,7 +88,8 @@ plot = data_interactive %>%
   geom_point_interactive(aes(data_id = id,
                              tooltip = tooltip,
                              onclick = onClick),
-                         color = "steelblue") +
+                         color = "steelblue",
+                         size = 2.2) +
   scale_y_continuous(expand = c(0,0.7,0.1,0),
                      name = "Deaths") +
   scale_x_date(name = "Date of Incident") +
@@ -99,7 +100,8 @@ plot_mobile = data_interactive %>%
   ggplot(aes(x = incident_date, y = number)) +
   geom_point_interactive(aes(data_id = id,
                              tooltip = tooltip),
-                         color = "steelblue") +
+                         color = "steelblue",
+                         size = 2.2) +
   scale_y_continuous(expand = c(0,0.7,0.1,0),
                      name = "Deaths") +
   scale_x_date(name = "Date of Incident") +
@@ -111,12 +113,16 @@ tooltip_css = "background-color:white;color:black;font-style:italic;padding:10px
 
 plot_girafe = girafe(ggobj = plot,
                      options = list(opts_tooltip(css = tooltip_css,
-                                                 delay_mouseout = 1500) ))
+                                                 delay_mouseout = 1500,
+                                                 offx = 5,
+                                                 use_cursor_pos = TRUE) ))
 
 saveWidget(plot_girafe, file = "covid_deaths_interactive.html")
 
 
 plot_girafe_mobile = girafe(ggobj = plot_mobile,
                             options = list(opts_tooltip(css = tooltip_css,
-                                                        delay_mouseout = 1500) ))
+                                                        delay_mouseout = 1500,
+                                                        offx = 5,
+                                                        use_cursor_pos = TRUE) ))
 saveWidget(plot_girafe_mobile, file = "covid_deaths_interactive_mobile.html")
