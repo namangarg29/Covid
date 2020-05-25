@@ -1,6 +1,5 @@
 library(jsonlite)
 library(tidyverse)
-library(plotly)
 library(RColorBrewer)
 library(ggiraph)
 library(htmlwidgets)
@@ -90,12 +89,33 @@ plot = data_interactive %>%
                              tooltip = tooltip,
                              onclick = onClick),
                          color = "steelblue") +
+  scale_y_continuous(expand = c(0,0.7,0.1,0),
+                     name = "Deaths") +
+  scale_x_date(name = "Date of Incident") +
   theme_classic()
 
-#plot
+plot_mobile = data_interactive %>%
+  mutate(number = number - 0.5) %>%
+  ggplot(aes(x = incident_date, y = number)) +
+  geom_point_interactive(aes(data_id = id,
+                             tooltip = tooltip),
+                         color = "steelblue") +
+  scale_y_continuous(expand = c(0,0.7,0.1,0),
+                     name = "Deaths") +
+  scale_x_date(name = "Date of Incident") +
+  theme_classic()
+
+plot_mobile
 
 tooltip_css = "background-color:white;color:black;font-style:italic;padding:10px;border-radius:5px;border-style:solid;"
 
 plot_girafe = girafe(ggobj = plot,
                      options = list(opts_tooltip(css = tooltip_css) ))
+
 saveWidget(plot_girafe, file = "covid_deaths_interactive.html")
+
+
+plot_girafe_mobile = girafe(ggobj = plot_mobile,
+                            options = list(opts_tooltip(css = tooltip_css) ))
+saveWidget(plot_girafe_mobile, file = "covid_deaths_interactive_mobile.html")
+
