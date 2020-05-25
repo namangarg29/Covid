@@ -16,10 +16,14 @@ download.file(url = "https://raw.githubusercontent.com/datameet/covid19/master/d
 data = fromJSON(txt = "Data/non_virus_deaths.json") %>%
   pluck("rows") %>%
   pluck("value") %>%
-  mutate(incident_date = as.Date(incident_date),
-         cause = reason %>%
-           pluck(1) %>%
-           reduce(~str_c(.x, .y, sep = ", ")))
+  mutate(incident_date = as.Date(incident_date))
+
+data$cause = as.character(NA)
+for (i in 1:dim(data)[1]){
+  data$cause[i] = data$reason[i] %>%
+    pluck(1) %>%
+    reduce(~str_c(.x, .y, sep = ", "))
+}
 
 
 ### Clean ---------------
