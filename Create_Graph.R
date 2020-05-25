@@ -128,5 +128,5 @@ plot_girafe_mobile = girafe(ggobj = plot_mobile,
                             options = list(opts_tooltip(css = tooltip_css,
                                                         delay_mouseout = 1500,
                                                         offx = 5,
-                                                        use_cursor_pos = TRUE) ))
+                                                        use_cursor_pos = FALSE) ))
 saveWidget(plot_girafe_mobile, file = "covid_deaths_interactive_mobile.html")
